@@ -1,15 +1,24 @@
 .gallery_image{
 cursor: pointer;
 position: relative;
+/* transition: 0.2s ease-in-out; */
+transition: transform 0.2s ease-in-out;
 }
 .gallery_image:hover .img_hover_overlay{
   visibility: visible;
   transform: scale(1);
   }
-
+  .gallery_image:active{
+    opacity: 1;
+    background-color: rgb(255, 255, 255);
+  }
+  .gallery_image:active .img_hover_overlay{
+    visibility: hidden !important;
+  }
 .gallery_image .img_hover_overlay {
   visibility: hidden;
   transform: scale(0.9);
+  cursor: pointer;
   /* transition: all 1s ease-out; */
   transition: 0.2s ease-in-out;
   /* transition: all 1.5s cubic-bezier(0, 0, .05, 1); */
@@ -21,6 +30,7 @@ position: relative;
   width: 100%;
   height: 100%;
   padding: 0.75rem;
+  border-radius: 0.5rem;
 }
 .gallery_image .img_hover_overlay input{
 width: 1rem;
