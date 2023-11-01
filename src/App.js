@@ -16,24 +16,19 @@ import { useState } from 'react';
 function App() {
 
   const [allImages, setAllImages] = useState([
-    Image1,
-    Image2,
-    Image3,
-    Image4,
-    Image5,
-    Image6,
-    Image7,
-    Image8,
-    Image9,
-    Image10,
-    Image11
+    {id: 0, src: Image1},
+    {id: 1, src: Image2},
+    {id: 2, src: Image3},
+    {id: 3, src: Image4},
+    {id: 4, src: Image5},
+    {id: 5, src: Image6},
+    {id: 6, src: Image7},
+    {id: 7, src: Image8},
+    {id: 8, src: Image9},
+    {id: 9, src: Image10},
+    {id: 10, src: Image11}
   ]);
   const [draggedItem, setDraggedItem] = useState(null);
-  const [items, setItems] = useState([
-    { id: 1, text: 'Item 1' },
-    { id: 2, text: 'Item 2' },
-    { id: 3, text: 'Item 3' },
-  ]);
 
   const handleDragStart = (e, item, index) => {
     setDraggedItem({ item: item, index: index });
@@ -45,17 +40,54 @@ function App() {
 
   const handleDrop = (e, targetItem, targetIndex) => {
     e.preventDefault();
-    const updatedItems = allImages.map((item, index) => {
-      if (index === targetIndex) {
-        return draggedItem.item;
+    // Make a copy of the original array
+    const newArray = [...allImages];
+    console.log("target index: "+targetIndex+" dragged index: "+draggedItem.index);
+    // Check if the index to replace is within the valid range
+    if (targetIndex >= 0 && targetIndex < newArray.length) {
+      // Replace the element at the specified index
+      // console.log(newArray);
+      newArray[targetIndex] = draggedItem.item;
+      newArray[targetIndex+1] = targetItem;
+
+
+    
+
+      console.log(newArray);
+      // Shift the values to the right
+      for (let i = targetIndex+2; i < newArray.length; i++) {
+        if(i-1 < draggedItem.index)
+        {
+          newArray[i]= allImages[i-1];
+        }
+     
       }
-      if (index === draggedItem.index) {
-        return targetItem;
-      }
-      return item;
-    });
-    console.log(updatedItems);
-    setAllImages(updatedItems);
+
+      console.log(newArray);
+      // for (let i = newArray.length - 1; i > targetIndex; i--) {
+        
+      //     newArray[i] = newArray[i - 1];
+      //     // if(i==(targetIndex+1)){
+      //     //   newArray[i] = targetItem
+      //     //   newArray[targetIndex] = draggedItem.item;
+      //     // }
+      //   console.log('all I '+i);
+      // }
+    }
+
+    setAllImages(newArray);
+
+    // const updatedItems = allImages.map((item, index) => {
+    //   if (index === targetIndex) {
+    //     return draggedItem.item;
+    //   }
+    //   if (index === draggedItem.index) {
+    //     return targetItem;
+    //   }
+    //   return item;
+    // });
+    // console.log(updatedItems);
+    // setAllImages(updatedItems);
     setDraggedItem(null);
   };
 
@@ -72,21 +104,21 @@ function App() {
               return (
                 <>
                   {index === 0 ? (
-                    <div className='col-span-2 row-span-2 rounded-lg border gallery_image' onDragStart={(e) => handleDragStart(e, item, index)}
+                    <div key={index} className='col-span-2 row-span-2 rounded-lg border gallery_image' onDragStart={(e) => handleDragStart(e, item, index)}
                       onDragOver={handleDragOver}
                       onDrop={(e) => handleDrop(e, item, index)}
                       draggable>
-                      <img className="h-auto max-w-full rounded-lg" src={item} alt="" />
+                      <img className="h-auto max-w-full rounded-lg" src={item.src} alt="" />
                       <div className='img_hover_overlay'>
                         <input type='checkbox' className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500' name='' value={''} />
                       </div>
                     </div>
                   ) : (
-                    <div className='border rounded-lg gallery_image' onDragStart={(e) => handleDragStart(e, item, index)}
+                    <div key={index} className='border rounded-lg gallery_image' onDragStart={(e) => handleDragStart(e, item, index)}
                       onDragOver={handleDragOver}
                       onDrop={(e) => handleDrop(e, item, index)}
                       draggable>
-                      <img className="h-auto max-w-full rounded-lg" src={item} alt="" />
+                      <img className="h-auto max-w-full rounded-lg" src={item.src} alt="" />
                       <div className='img_hover_overlay'>
                         <input type='checkbox' className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500' name='' value={''} />
                       </div>
