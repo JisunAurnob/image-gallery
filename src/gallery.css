@@ -2,7 +2,9 @@
 cursor: pointer;
 position: relative;
 /* transition: 0.2s ease-in-out; */
-transition: transform 0.2s ease-in-out;
+/* transition: transform 0.2s ease-in-out; */
+
+transition: transform 0.3s ease;
 }
 .gallery_image:hover .img_hover_overlay{
   visibility: visible;

@@ -68,6 +68,7 @@ function App() {
   const removeSelectedImages = () =>{
       const filteredData = allImages.filter(item => !selectedImages.includes(item.id));
       setAllImages(filteredData);
+      setSelectedImages([]);
   }
   // console.log(selectedImages);
   return (
@@ -77,11 +78,11 @@ function App() {
         <div className='w-100 lg:w-3/4 my-6 bg-white rounded-lg'>
           <div className='border-b-2 px-8 py-4'>
             {selectedImages && selectedImages.length > 0 ?
-              (<div className='text-bold flex justify-between'>
+              (<div className='text-bold flex justify-between h-7'>
                 <span className=''>{selectedImages.length} Files Selected</span>
                 <button onClick={removeSelectedImages} className='text-red-400 hover:underline'>Delete files</button>
               </div>) : (
-                <p className='text-xl font-medium'>Gallery</p>
+                <p className='text-xl font-medium h-7'>Gallery</p>
               )}
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 p-8">
@@ -104,7 +105,7 @@ function App() {
                     </div>
                   </div>
                 ) : (
-                  <div key={index} className='border rounded-lg gallery_image' onDragStart={(e) => handleDragStart(e, item, index)}
+                  <div key={index} className='transition-all border rounded-lg gallery_image' onDragStart={(e) => handleDragStart(e, item, index)}
                     onDragOver={handleDragOver}
                     onDrop={(e) => handleDrop(e, item, index)}
                     draggable>
